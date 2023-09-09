@@ -62,11 +62,12 @@ model_filename = "stacking_model.pkl"   # Define the filename for saving the mod
 
 # Create base models (CNNs) as scikit-learn estimators
 base_models = [
-    ("cnn1", KerasClassifier(build_fn=lambda: create_cnn_model(64, n_features, n_classes), epochs=10, batch_size=32))
+    ("cnn1", KerasClassifier(build_fn=lambda: create_cnn_model(64, n_features, n_classes), epochs=10, batch_size=32)),
+    ("cnn2", KerasClassifier(build_fn=lambda: create_cnn_model(32, n_features, n_classes), epochs=10, batch_size=32))
 ]
 
 # Define the stacking ensemble model
-stacking_model = StackingClassifier(estimators=base_models, final_estimator=LGBMClassifier(n_estimators=50, n_jobs=-1, force_col_wise=True))
+stacking_model = StackingClassifier(estimators=base_models, final_estimator=LGBMClassifier(n_estimators=30, n_jobs=-1, force_col_wise=True))
 
 # Fit the stacking model on the scaled training data
 stacking_model.fit(X_train, y_train)
