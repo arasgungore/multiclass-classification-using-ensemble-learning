@@ -68,7 +68,7 @@ model_filename = "stacking_model.pkl"   # Define the filename for saving the mod
 params_grid_pipeline = {
     "umap__n_components": [15, 25, 50],
     "umap__n_neighbors": [5, 10, 20],
-    "umap__min_dist": [0.05, 0.1, 0.2],
+    "umap__min_dist": [0.1, 0.2, 0.3],
     'cnn__N': [32, 64, 128],
     'cnn__epochs': [6, 10],
     'cnn__batch_size': [32, 64],
