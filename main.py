@@ -69,11 +69,10 @@ params_grid_pipeline = {
     "umap__n_components": [15, 25, 50],
     "umap__n_neighbors": [5, 10, 20],
     "umap__min_dist": [0.1, 0.2],
-    'cnn__N': [32, 64, 128],
 }
 
 # Create a KerasClassifier with UMAP-transformed features
-cnn_model = KerasClassifier(build_fn=create_cnn_model, verbose=0)
+cnn_model = KerasClassifier(build_fn=lambda: create_cnn_model(64, n_features, n_classes), verbose=0)
 pipeline = Pipeline([("umap", umap.UMAP()), ("cnn", cnn_model)])
 grid_search = GridSearchCV(estimator=pipeline, param_grid=params_grid_pipeline, cv=3, verbose=2, n_jobs=-1)
 
@@ -91,7 +90,7 @@ X_val = umap_model.transform(X_val)
 X_test = umap_model.transform(X_test)
 
 # Create the final CNN model with UMAP-transformed features
-final_model = create_cnn_model(best_params['cnn__N'], best_params['umap__n_components'], n_classes)
+final_model = create_cnn_model(64, best_params['umap__n_components'], n_classes)
 
 # Train the final model on the UMAP-transformed data
 final_model.fit(X_train, y_train, epochs=10, batch_size=32)
