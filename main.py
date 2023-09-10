@@ -17,9 +17,11 @@ from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
 def create_cnn_model(N, n_features, n_classes):
     model = Sequential()
     model.add(Conv1D(N, kernel_size=3, activation='relu', input_shape=(n_features, 1)))
+    model.add(Dropout(0.3))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=2))
     model.add(Conv1D(2*N, kernel_size=3, activation='relu'))
+    model.add(Dropout(0.4))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=2))
     model.add(Flatten())
@@ -62,8 +64,7 @@ model_filename = "stacking_model.pkl"   # Define the filename for saving the mod
 
 # Create base models (CNNs) as scikit-learn estimators
 base_models = [
-    ("cnn1", KerasClassifier(build_fn=lambda: create_cnn_model(64, n_features, n_classes), epochs=10, batch_size=32)),
-    ("cnn2", KerasClassifier(build_fn=lambda: create_cnn_model(32, n_features, n_classes), epochs=10, batch_size=32))
+    ("cnn1", KerasClassifier(build_fn=lambda: create_cnn_model(256, n_features, n_classes), epochs=15, batch_size=32))
 ]
 
 # Define the stacking ensemble model
