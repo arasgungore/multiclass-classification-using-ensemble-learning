@@ -35,13 +35,13 @@ def create_cnn_model(N, n_features, n_classes):
 
 
 # Load the training data
-train_data = pd.read_csv("train_data_swc.csv")
+train_data = pd.read_csv("./swc-dataset/train_data_swc.csv")
 # Extract the features (X) and target labels (y) from the training data
 X = train_data.drop("y", axis=1)
 y = train_data["y"]
 
 # Load the test data
-X_test = pd.read_csv("test_data_swc.csv")
+X_test = pd.read_csv("./swc-dataset/test_data_swc.csv")
 
 # Split the training data into train and validation sets
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.1)
