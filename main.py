@@ -68,10 +68,8 @@ model_filename = "stacking_model.pkl"   # Define the filename for saving the mod
 params_grid_pipeline = {
     "umap__n_components": [15, 25, 50],
     "umap__n_neighbors": [5, 10, 20],
-    "umap__min_dist": [0.1, 0.2, 0.3],
+    "umap__min_dist": [0.1, 0.2],
     'cnn__N': [32, 64, 128],
-    'cnn__epochs': [6, 10],
-    'cnn__batch_size': [32, 64],
 }
 
 # Create a KerasClassifier with UMAP-transformed features
@@ -96,7 +94,7 @@ X_test = umap_model.transform(X_test)
 final_model = create_cnn_model(best_params['cnn__N'], best_params['umap__n_components'], n_classes)
 
 # Train the final model on the UMAP-transformed data
-final_model.fit(X_train, y_train, epochs=best_params['cnn__epochs'], batch_size=best_params['cnn__batch_size'])
+final_model.fit(X_train, y_train, epochs=10, batch_size=32)
 
 # Create base models (CNNs) as scikit-learn estimators
 # base_models = [
