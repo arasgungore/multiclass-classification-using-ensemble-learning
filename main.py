@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.ensemble import StackingClassifier
 from sklearn.metrics import log_loss
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, FunctionTransformer
 from lightgbm import LGBMClassifier
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dense, Dropout, BatchNormalization
@@ -72,8 +72,11 @@ params_grid_pipeline = {
 }
 
 # Create a KerasClassifier with UMAP-transformed features
+umap_model = umap.UMAP()
 cnn_model = KerasClassifier(build_fn=lambda: create_cnn_model(64, n_features, n_classes), verbose=0)
-pipeline = Pipeline([("umap", umap.UMAP()), ("cnn", cnn_model)])
+pipeline = Pipeline([("umap", umap_model),
+                     ("reshape", FunctionTransformer(lambda x: np.reshape(x, (len(x), umap_model.n_components, 1)))),
+                     ("cnn", cnn_model)])
 grid_search = GridSearchCV(estimator=pipeline, param_grid=params_grid_pipeline, cv=3, verbose=2, n_jobs=-1)
 
 # Fit the GridSearchCV to find the best hyperparameters
