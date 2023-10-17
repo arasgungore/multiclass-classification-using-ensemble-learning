@@ -46,9 +46,9 @@ stacked_model = StackingClassifier(
 
 # Define the parameter space for Bayesian optimization
 param_space = {
-    'lgb__n_estimators': (10, 1000),
-    'lgb__learning_rate': (0.01, 0.2),
-    'lgb__num_leaves': (31, 500),
+    'lgb__n_estimators': (10, 100, 400),
+    'lgb__learning_rate': (0.1, 0.2),
+    'lgb__num_leaves': (30, 60, 100),
     'lgb__max_depth': (5, 20),
     'decision_tree__max_depth': (5, 20),
 }
