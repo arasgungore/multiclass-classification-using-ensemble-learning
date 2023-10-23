@@ -4,14 +4,6 @@ A model based on ensemble of CNNs and LightGBM for a multiclass classification p
 
 
 
-## Run on Terminal
-
-```sh
-python main.py
-```
-
-
-
 ## Author
 
 👤 **Aras Güngöre**
