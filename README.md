@@ -4,6 +4,15 @@ A model based on ensemble of CNNs and LightGBM for a multiclass classification p
 
 
 
+## Run on Terminal
+
+```sh
+jupyter nbconvert --to notebook --execute cnn_ensemble.ipynb
+jupyter nbconvert --to notebook --execute lightgbm_ensemble.ipynb
+```
+
+
+
 ## Author
 
 👤 **Aras Güngöre**
