@@ -6,8 +6,13 @@ A model based on ensemble of CNNs and LightGBM for a multiclass classification p
 
 ## Run on Terminal
 
+**a) Run CNN ensemble model**
 ```sh
 jupyter nbconvert --to notebook --execute cnn_ensemble.ipynb
+```
+
+**b) Run LightGBM ensemble model**
+```sh
 jupyter nbconvert --to notebook --execute lightgbm_ensemble.ipynb
 ```
 
